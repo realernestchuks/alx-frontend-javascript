@@ -1,15 +1,13 @@
-export default class Car {
-  constructor(brand, motor, color) {
-    this._brand = brand;
-    this._motor = motor;
-    this._color = color;
+const updateUniqueItems = (items) => {
+  if (!(items instanceof Map)) {
+    throw new Error('Cannot process');
   }
+  for (const [k, v] of items.entries()) {
+    if (v === 1) {
+      items.set(k, 100);
+    }
+  }
+  return items;
+};
 
-  static get [Symbol.species]() {
-    return this.prototype.constructor;
-  }
-
-  cloneCar() {
-    return new (this.constructor[Symbol.species])();
-  }
-}
+export default updateUniqueItems;

@@ -1,12 +1,13 @@
-import Car from './10-car';
+export const weakMap = new WeakMap();
 
-export default class EVCar extends Car {
-  constructor(brand, motor, color, range) {
-    super(brand, motor, color);
-    this._range = range;
+export const queryAPI = (endpoint) => {
+  if (weakMap.has(endpoint)) {
+    const endpointData = weakMap.get(endpoint);
+    if (endpointData >= 4) {
+      throw new Error('Endpoint load is high');
+    }
+    weakMap.set(endpoint, (endpointData + 1));
+  } else {
+    weakMap.set(endpoint, 1);
   }
-
-  static get [Symbol.species]() {
-    return Car;
-  }
-}
+};
